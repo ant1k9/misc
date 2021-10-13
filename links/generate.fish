@@ -2,6 +2,14 @@
 
 set LINKS_DB "links.sqlite3"
 
+function _links_usage
+    echo 'Newsletter usage:
+    newsletter                      # gets 10 next links from newsletter db
+    newsletter help                 # prints help command
+    newsletter stats                # gets current progress
+    newsletter 5 --filter postgres  # gets next 5 links with filter by title'
+end
+
 function _links_stats
     set -l finished (sqlite3 "$LINKS_DB" "SELECT COUNT(1) FROM links WHERE is_finished")
     set -l total (sqlite3 "$LINKS_DB" "SELECT COUNT(1) FROM links")
@@ -24,6 +32,12 @@ function _generate_links
         sqlite3 "$LINKS_DB" \
             "UPDATE links SET is_finished = 1 WHERE href = '$href'" || true
     end
+end
+
+# print usage
+if test "$argv" = "help"
+    _links_usage
+    exit 0
 end
 
 # print stats

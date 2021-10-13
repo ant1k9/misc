@@ -10,9 +10,15 @@ end
 
 function _generate_links
     set -l LIMIT "$argv[1]"
+
+    set -l FILTER "1 = 1"
+    if test (count $argv) = 2
+        set FILTER "title LIKE '%$argv[2]%'"
+    end
+
     for href in ( \
         sqlite3 "$LINKS_DB" \
-        "SELECT href FROM links WHERE is_finished = 0 ORDER BY RANDOM() LIMIT $LIMIT" \
+        "SELECT href FROM links WHERE is_finished = 0 AND $FILTER ORDER BY RANDOM() LIMIT $LIMIT" \
     )
         open (echo $href | tr -d '"')
         sqlite3 "$LINKS_DB" \
@@ -28,8 +34,11 @@ end
 
 # open links in browser
 set -l LIMIT 10
-if test (count $argv) -eq 1
+if test (count $argv) -ge 1
     set LIMIT "$argv[1]"
 end
 
-_generate_links "$LIMIT"
+argparse \
+    'filter=' -- $argv
+
+_generate_links "$LIMIT" "$_flag_filter"

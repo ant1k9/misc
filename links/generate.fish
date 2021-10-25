@@ -46,6 +46,12 @@ if test "$argv" = "stats"
     exit 0
 end
 
+# print stats
+if test "$argv" = "serve"
+    newsletter-app
+    exit 0
+end
+
 # open links in browser
 set -l LIMIT 10
 if test (count $argv) -ge 1

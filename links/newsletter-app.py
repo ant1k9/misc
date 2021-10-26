@@ -45,7 +45,7 @@ def list_links() -> str:
       }
     </script>
     """
-    html = head + """<body><div class="container p-4 col-6">"""
+    html = head + """<body><div class="container p-4 col-12">"""
     for item in result:
         title = item["title"].strip('"')
         html += f"""

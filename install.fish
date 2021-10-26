@@ -12,3 +12,8 @@ if test "$PROGRAM" = "newsletter"
     sed -i "s:links.sqlite3:$PWD/links/links.sqlite3:g" "$HOME/bin/newsletter"
     sed -i "s:links.sqlite3:$PWD/links/links.sqlite3:g" "$HOME/bin/newsletter-app"
 end
+
+if test "$PROGRAM" = "load-to-dropbox"
+    cp dropbox/load-to-dropbox.sh "$HOME/bin/load-to-dropbox"
+    chmod +x "$HOME/bin/load-to-dropbox"
+end

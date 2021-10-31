@@ -17,3 +17,8 @@ if test "$PROGRAM" = "load-to-dropbox"
     cp dropbox/load-to-dropbox.sh "$HOME/bin/load-to-dropbox"
     chmod +x "$HOME/bin/load-to-dropbox"
 end
+
+if test "$PROGRAM" = "knowledge-map"
+    cp knowledge-map/kmap-from-github.fish "$HOME/bin/kmap-from-github"
+    chmod +x "$HOME/bin/kmap-from-github"
+end

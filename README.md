@@ -10,3 +10,5 @@ $ newsletter
 #### Supported scripts
 
 - newsletter 🗞️
+- load-to-dropbox 📦
+- knowledge-map-from-github (kmap-from-github) 🌎

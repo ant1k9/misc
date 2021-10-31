@@ -22,4 +22,10 @@ echo "_Description_: "(_get_jq_attr 'description')
 echo
 echo "_Labels_: #"(_get_jq_attr 'language')
 
+set -l HOMEPAGE (_get_jq_attr 'homepage')
+if test -n "$HOMEPAGE"
+    echo
+    echo "_Docs_: $HOMEPAGE"
+end
+
 rm "$TMP_FILE"

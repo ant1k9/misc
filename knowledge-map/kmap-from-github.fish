@@ -18,14 +18,14 @@ end
 
 echo "["(_get_jq_attr 'name')"]("(_get_jq_attr 'html_url')")"
 echo
-echo "_Description_: "(_get_jq_attr 'description')
+echo "*Description*: "(_get_jq_attr 'description')
 echo
-echo "_Labels_: #"(_get_jq_attr 'language')
+echo "*Labels*: #"(_get_jq_attr 'language')
 
 set -l HOMEPAGE (_get_jq_attr 'homepage')
 if test -n "$HOMEPAGE"
     echo
-    echo "_Docs_: $HOMEPAGE"
+    echo "*Docs*: $HOMEPAGE"
 end
 
 rm "$TMP_FILE"

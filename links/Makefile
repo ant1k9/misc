@@ -14,3 +14,4 @@ db:
 
 load:
 	@$(foreach file,$(shell ls commands/*cmd), LINKS_FILE=${LINKS_FILE} $(file) && ./load.fish ${LINKS_FILE};)
+	@./clean.fish

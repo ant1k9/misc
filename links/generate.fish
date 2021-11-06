@@ -6,6 +6,7 @@ function _links_usage
     echo 'Newsletter usage:
     newsletter                      # gets 10 next links from newsletter db
     newsletter help                 # prints help command
+    newsletter serve                # serve links app as a web page
     newsletter stats                # gets current progress
     newsletter 5 --filter postgres  # gets next 5 links with filter by title'
 end

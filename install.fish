@@ -19,6 +19,7 @@ if test "$PROGRAM" = "load-to-dropbox"
 end
 
 if test "$PROGRAM" = "knowledge-map"
-    cp knowledge-map/kmap-from-github.fish "$HOME/bin/kmap-from-github"
-    chmod +x "$HOME/bin/kmap-from-github"
+    cp knowledge-map/kmap.fish "$HOME/bin/kmap"
+    cp knowledge-map/kmap-completions.fish "$HOME/.config/fish/completions/kmap.fish"
+    chmod +x "$HOME/bin/kmap"
 end

@@ -35,8 +35,8 @@ def list_links() -> str:
 
     head = """
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@forevolve/bootstrap-dark@1.0.0/dist/css/bootstrap-dark.min.css" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script>
       const doneHandler = function(link) {
         let xhr = new XMLHttpRequest();
@@ -45,19 +45,22 @@ def list_links() -> str:
       }
     </script>
     """
-    html = head + """<body><div class="container p-4 col-12">"""
+    html = head + """<body><div class="container p-4 col-8">"""
+    if 'android' in request.headers.get('User-Agent').lower():
+        html = head + """<body><div class="container p-4 col-12">"""
+
     for item in result:
         title = item["title"].strip('"')
         html += f"""
         <div class="card">
           <div class="card-body text-center">
             <a href={item['href']} target="_blank">{title}</a>
-            <button class="float-end" onclick='doneHandler({item['href']})'>done</button>
+            <button class="float-right btn btn-dark" onclick='doneHandler({item['href']})'>done</button>
           </div>
         </div>
         """
     if total > 0:
-        html += f"""<div class="text-end">[{finished}/{total}] {100*finished/total:.3f}%</div>"""
+        html += f"""<div class="text-right">[{finished}/{total}] {100*finished/total:.3f}%</div>"""
     return html + "</div></body>"
 
 

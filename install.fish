@@ -23,3 +23,8 @@ if test "$PROGRAM" = "knowledge-map"
     cp knowledge-map/kmap-completions.fish "$HOME/.config/fish/completions/kmap.fish"
     chmod +x "$HOME/bin/kmap"
 end
+
+if test "$PROGRAM" = "youtube-playlist-sorter"
+    cp youtube-playlist-sorter/youtube.fish "$HOME/bin/yps"
+    chmod +x "$HOME/bin/yps"
+end

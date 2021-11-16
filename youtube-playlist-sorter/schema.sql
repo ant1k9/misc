@@ -3,5 +3,6 @@ CREATE TABLE playlists (
     video_id    TEXT UNIQUE,
     views       INT,
     likes       INT,
-    dislikes    INT
+    dislikes    INT,
+    name        TEXT
 );

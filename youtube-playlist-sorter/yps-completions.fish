@@ -1,10 +1,10 @@
 #!/usr/bin/env fish
 set -l _yps_commands ( \
     sqlite3 -csv "$HOME/.config/yps/playlists.sqlite3" \
-    "SELECT DISTINCT playlist_id FROM playlists" \
+    "SELECT DISTINCT name FROM playlists" \
 )
 
-function _yps_order_by 
+function _yps_order_by
     echo -e "views\nlikes"
 end
 
@@ -19,6 +19,10 @@ end
 complete -f -c yps \
     -l limit \
     -d "limit output to n records"
+
+complete -f -c yps \
+    -l playlist-id \
+    -d "pass playlist-id to download data for it"
 
 complete -f -c yps \
     -l order-by \

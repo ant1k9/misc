@@ -11,5 +11,5 @@ $ newsletter
 
 - 🗞️ newsletter
 - 📦 load-to-dropbox
-- 🌎 knowledge-map-from-github (kmap)
+- 🌎 knowledge-map (kmap)
 - 🎦 youtube-playlist-sorter (yps)

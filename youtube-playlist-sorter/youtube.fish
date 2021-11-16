@@ -2,7 +2,7 @@
 
 function usage
     echo "Usage:
-    yps <playlist_id>"
+    yps playlist-id --limit=20 --order-by=likes"
 end
 
 if test (count $argv) -eq 0
@@ -10,11 +10,12 @@ if test (count $argv) -eq 0
     exit 0
 end
 
-source config.env
+source "$HOME/.config/yps/config.env"
 set PLAYLIST_ID "$argv[1]"
 set BATCH_SIZE 50
 set TMP_FILE "/tmp/playlist.results"
 set STATS_FILE "/tmp/playlist.stats"
+set DB "$HOME/.config/yps/playlists.sqlite3"
 
 function get-playlist-results
     if test (count $argv) -eq 2
@@ -33,10 +34,15 @@ function get-playlist-results
     curl "https://content-youtube.googleapis.com/youtube/v3/videos?part=statistics&$IDS_REQUEST&key=$YOUTUBE_API_KEY" \
         -H 'x-origin: https://explorer.apis.google.com' \
         -H "authorization: Bearer $YOUTUBE_API_TOKEN" \
-        > /tmp/stats
+        | jq '.items[] |
+            env.PLAYLIST_ID
+            + "," + "https://www.youtube.com/watch?v=" + .id
+            + "," + .statistics.viewCount
+            + "," + .statistics.likeCount
+            + "," + .statistics.dislikeCount' \
+        | tr -d '"' > "$STATS_FILE"
 
-    cat /tmp/stats \
-        | jq '.items[] | "https://www.youtube.com/watch?v=" + .id + " " + .statistics.viewCount + " " + .statistics.likeCount + " " + .statistics.dislikeCount' | tr -d '"' >> "$STATS_FILE"
+    sqlite3 -csv "$DB" ".import $STATS_FILE playlists"
 
     set NEXT_PAGE_TOKEN ( \
         grep nextPageToken "$TMP_FILE" \
@@ -44,9 +50,33 @@ function get-playlist-results
     )
     echo "NEXT_PAGE_TOKEN = $NEXT_PAGE_TOKEN"
     if ! test -z "$NEXT_PAGE_TOKEN"
-        get-playlist-results "$argv[1]" "$NEXT_PAGE_TOKEN"
+        get-playlist-results "$PLAYLIST_ID" "$NEXT_PAGE_TOKEN"
     end
 end
 
-get-playlist-results "$PLAYLIST_ID"
-echo "$STATS_FILE"
+function get-playlist-sorted
+    if test -z (string match -r -- "-.*" "$argv[1]")
+        usage
+        return
+    end
+
+    if test -z (sqlite3 "$DB" "SELECT 1 FROM playlists WHERE playlist_id = '$PLAYLIST_ID' LIMIT 1")
+        get-playlist-results "$PLAYLIST_ID"
+    end
+
+    argparse 'order-by=' 'limit=' -- $argv
+    if test -z $_flag_order_by
+        set _flag_order_by views
+    end
+    if test -z $_flag_limit
+        set _flag_limit 10
+    end
+
+    sqlite3 -csv "$DB" \
+        "SELECT video_id, views, likes, dislikes FROM playlists
+            WHERE playlist_id = '$PLAYLIST_ID' ORDER BY $_flag_order_by DESC LIMIT $_flag_limit" \
+        | tr ',' ' '
+end
+
+argparse 'order-by=' 'limit=' -- $argv
+get-playlist-sorted "$argv[1]" --order-by=$_flag_order_by --limit=$_flag_limit

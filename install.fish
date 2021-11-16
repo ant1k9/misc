@@ -26,5 +26,15 @@ end
 
 if test "$PROGRAM" = "youtube-playlist-sorter"
     cp youtube-playlist-sorter/youtube.fish "$HOME/bin/yps"
+    cp youtube-playlist-sorter/yps-completions.fish "$HOME/.config/fish/completions/yps.fish"
     chmod +x "$HOME/bin/yps"
+
+    if ! test -f "$HOME/.config/yps/config.env"
+        cp youtube-playlist-sorter/config.example.env "$HOME/.config/yps/config.env"
+    end
+
+    mkdir -p "$HOME/.config/yps"
+    if ! test -f "$HOME/.config/yps/playlists.sqlite3"
+        cat "youtube-playlist-sorter/schema.sql" | sqlite3 "$HOME/.config/yps/playlists.sqlite3"
+    end
 end

@@ -5,6 +5,13 @@ if test (count $argv) -eq 1
     set PROGRAM $argv[1]
 end
 
+if test "$PROGRAM" = "misc"
+    cp misc/misc.fish "$HOME/bin/misc"
+    cp misc/misc-completions.fish "$HOME/.config/fish/completions/misc.fish"
+    chmod +x "$HOME/bin/misc"
+    sed -i "s:# TODO:$PWD:g" "$HOME/bin/misc"
+end
+
 if test "$PROGRAM" = "newsletter"
     cp links/generate.fish "$HOME/bin/newsletter"
     cp links/newsletter-app.py "$HOME/bin/newsletter-app"

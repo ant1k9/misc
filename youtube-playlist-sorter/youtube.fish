@@ -52,13 +52,13 @@ function get-playlist-results
         | tr -d '",:' | awk '{ print $2 }' | tr -d ' ' \
     )
     echo "NEXT_PAGE_TOKEN = $NEXT_PAGE_TOKEN"
-    if ! test -z "$NEXT_PAGE_TOKEN"
+    if test -n "$NEXT_PAGE_TOKEN"
         get-playlist-results "$PLAYLIST_ID" "$PLAYLIST_NAME" "$NEXT_PAGE_TOKEN"
     end
 end
 
 function get-playlist-sorted
-    if ! test -z (string match -r -- "-.*" "$argv[1]")
+    if test -n (string match -r -- "-.*" "$argv[1]")
         usage
         return
     end

@@ -8,7 +8,7 @@ function _yps_order_by
     echo -e "views\nlikes"
 end
 
-if ! test -z (echo $_yps_commands)
+if test -n (echo $_yps_commands)
     for cmd in $_yps_commands
         complete -f -c yps \
             -n "not __fish_seen_subcommand_from $_yps_commands" \

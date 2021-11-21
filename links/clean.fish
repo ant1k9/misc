@@ -1,17 +1,26 @@
 #!/usr/bin/env fish
 
-set -l GARBAGE_LINKS \
-    '% engineer %' '%tech lead%' '%Vettery%' '%developer%remote%' \
+set -l SKIP_TITLES \
+    '% engineer %' '%tech lead%' '%Vettery%' '%developer%remote%' '%engineer"' \
     '%unsubscribe%' '"Read on the Web"' \
-    '"1"' '"2"' '"3"' '"4"' '"5"' '"6"' '"7"' '"8"' '"9"' '"10"' \
-    '"Postgres Weekly"' '%pgday%' '%pgconf%' '%PosttgresConf%' \
+    '"0"' '"1"' '"2"' '"3"' '"4"' '"5"' '"6"' '"7"' '"8"' '"9"' '"10"' \
+    '"Postgres Weekly"' '%pgday%' '%pgcon%' '%PostgresConf%' \
     '%conference%' '%podcast%' '%meetup%' '%talks%' '%summit%' '%meeting%' '%survey%' \
     '%KUBE% SIG %' '%agenda%' '"Agenda/Notes: here"' \
     '%youtube.com%' '%circleci.com%' \
     '%.net core%' '%spring%' '%php%' \
-    'null'
+    'null' '%released%' \
+    '%Goland%' '%IntelliJ%' '%JetBrains%'
 
-for GARBAGE_LINK in $GARBAGE_LINKS
+set -l SKIP_HREFS \
+    '%youtube.com%' '%youtu.be%'
+
+for SKIP_TITLE in $SKIP_TITLES
     sqlite3 "links.sqlite3" \
-        "DELETE FROM links WHERE title LIKE '$GARBAGE_LINK'"
+        "DELETE FROM links WHERE title LIKE '$SKIP_TITLE'"
+end
+
+for SKIP_HREF in $SKIP_HREFS
+    sqlite3 "links.sqlite3" \
+        "DELETE FROM links WHERE href LIKE '$SKIP_HREF'"
 end

@@ -1,15 +1,15 @@
 #!/usr/bin/env fish
 
 set -l SKIP_TITLES \
-    '% engineer %' '%tech lead%' '%Vettery%' '%developer%remote%' '%engineer"' \
-    '%unsubscribe%' '"Read on the Web"' \
+    '% engineer %' '%tech lead%' '%Vettery%' '%developer%remote%' '%engineer"' '%engineer,%' \
+    '%unsubscribe%' '"Read on the Web"' '"Web Version"' \
     '"0"' '"1"' '"2"' '"3"' '"4"' '"5"' '"6"' '"7"' '"8"' '"9"' '"10"' \
     '"Postgres Weekly"' '%pgday%' '%pgcon%' '%PostgresConf%' \
     '%conference%' '%podcast%' '%meetup%' '%talks%' '%summit%' '%meeting%' '%survey%' \
     '%KUBE% SIG %' '%agenda%' '"Agenda/Notes: here"' \
     '%youtube.com%' '%circleci.com%' \
     '%.net core%' '%spring%' '%php%' \
-    'null' '%released%' \
+    'null' '%released%' '%release note%' \
     '%Goland%' '%IntelliJ%' '%JetBrains%'
 
 set -l SKIP_HREFS \

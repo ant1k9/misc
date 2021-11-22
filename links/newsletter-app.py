@@ -3,10 +3,12 @@
 import re
 import sqlite3
 
+from urllib.parse import unquote
+
 from flask import Flask, request
 
 
-Q_PATTERN = re.compile(r"^[\w\s]+$")
+Q_PATTERN = re.compile(r"^[\w\s-]+$")
 
 app = Flask(__name__)
 
@@ -15,7 +17,7 @@ app = Flask(__name__)
 def list_links() -> str:
     extra_filter = "1 = 1"
     if (q := request.args.get("q")) and Q_PATTERN.match(q):
-        extra_filter = f"title LIKE '%{q}%'"
+        extra_filter = f"title LIKE '%{unquote(q)}%'"
     query = (
         f"SELECT title, href FROM links WHERE is_finished = 0 AND {extra_filter} "
         "ORDER BY RANDOM() LIMIT 10"

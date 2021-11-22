@@ -13,11 +13,11 @@ if test "$PROGRAM" = "misc"
 end
 
 if test "$PROGRAM" = "newsletter"
-    cp links/generate.fish "$HOME/bin/newsletter"
-    cp links/newsletter-app.py "$HOME/bin/newsletter-app"
+    cp newsletter/generate.fish "$HOME/bin/newsletter"
+    cp newsletter/newsletter-app.py "$HOME/bin/newsletter-app"
     chmod +x "$HOME/bin/newsletter" "$HOME/bin/newsletter-app"
-    sed -i "s:links.sqlite3:$PWD/links/links.sqlite3:g" "$HOME/bin/newsletter"
-    sed -i "s:links.sqlite3:$PWD/links/links.sqlite3:g" "$HOME/bin/newsletter-app"
+    sed -i "s:links.sqlite3:$PWD/newsletter/links.sqlite3:g" "$HOME/bin/newsletter"
+    sed -i "s:links.sqlite3:$PWD/newsletter/links.sqlite3:g" "$HOME/bin/newsletter-app"
 end
 
 if test "$PROGRAM" = "load-to-dropbox"

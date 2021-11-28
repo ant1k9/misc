@@ -6,7 +6,7 @@ set -l SKIP_TITLES \
     '"0"' '"1"' '"2"' '"3"' '"4"' '"5"' '"6"' '"7"' '"8"' '"9"' '"10"' \
     '"Postgres Weekly"' '%pgday%' '%pgcon%' '%PostgresConf%' \
     '%conference%' '%podcast%' '%meetup%' '%talks%' '%summit%' '%meeting%' '%survey%' \
-    '%KUBE% SIG %' '%agenda%' '"Agenda/Notes: here"' \
+    '%KUBE% SIG %' '%agenda%' '"Agenda/Notes: here"' '%announcing%' \
     '%youtube.com%' '%circleci.com%' \
     '%.net core%' '%spring%' '%php%' \
     'null' '%released%' '%release note%' \

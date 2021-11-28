@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import base64
 import re
 import sqlite3
 
@@ -57,7 +58,10 @@ def list_links() -> str:
         <div class="card">
           <div class="card-body text-center">
             <a href={item['href']} target="_blank">{title}</a>
-            <button class="float-right btn btn-dark" onclick='doneHandler({item['href']})'>done</button>
+            <button class="float-right btn btn-dark"
+                    onclick='doneHandler("{base64.b64encode(item['href'].encode()).decode()}")'>
+              done
+            </button>
           </div>
         </div>
         """
@@ -72,7 +76,7 @@ def done():
     connection = sqlite3.Connection("links.sqlite3")
     cursor = connection.execute(
         "UPDATE links SET is_finished = 1 WHERE href = ?",
-        (f'"{request.data.decode()}"',)
+        (f'{base64.b64decode(request.data).decode()}',)
     )
     connection.commit()
     cursor.close()

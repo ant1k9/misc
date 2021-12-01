@@ -5,7 +5,7 @@
 ```bash
 $ ./install.fish misc
 $ misc list
-$ misc isntall newsletter
+$ misc install newsletter
 $ newsletter
 ```
 
@@ -13,7 +13,7 @@ $ newsletter
 
 - 📦 misc
 - 🌎 knowledge-map (kmap)
-- 📦 load-to-dropbox
+- 📦 dropbox (load-to-dropbox)
 - 🗞️ newsletter
 - 🖥️ vagrant-init (vg-init)
 - 🎦 youtube-playlist-sorter (yps)

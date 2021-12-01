@@ -45,3 +45,11 @@ if test "$PROGRAM" = "youtube-playlist-sorter"
         cat "youtube-playlist-sorter/schema.sql" | sqlite3 "$HOME/.config/yps/playlists.sqlite3"
     end
 end
+
+if test "$PROGRAM" = "vagrant-init"
+    cp vagrant-init/vagrant-init.fish "$HOME/bin/vg-init"
+    cp vagrant-init/vginit-completions.fish "$HOME/.config/fish/completions/vg-init.fish"
+    chmod +x "$HOME/bin/vg-init"
+    sed -i "s:# TODO:$PWD/vagrant-init:g" "$HOME/bin/vg-init"
+    sed -i "s:# TODO:$PWD/vagrant-init:g" "$HOME/.config/fish/completions/vg-init.fish"
+end

@@ -58,7 +58,8 @@ function get-playlist-results
 end
 
 function get-playlist-sorted
-    if test -n (string match -r -- "-.*" "$argv[1]")
+    set -l _bad_args (string match -r -- "-.*" "$argv[1]")
+    if test -n "$_bad_args"
         usage
         return
     end
@@ -79,7 +80,9 @@ function get-playlist-sorted
 
     sqlite3 -csv "$DB" \
         "SELECT video_id, views, likes, dislikes FROM playlists
-            WHERE name = '$PLAYLIST_NAME' ORDER BY $_flag_order_by DESC LIMIT $_flag_limit" \
+            WHERE name = '$PLAYLIST_NAME'
+            ORDER BY CAST($_flag_order_by AS INTEGER) DESC
+            LIMIT $_flag_limit" \
         | tr ',' ' '
 end
 

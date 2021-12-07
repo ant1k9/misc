@@ -86,7 +86,13 @@ function get-playlist-sorted
         | tr ',' ' '
 end
 
-argparse 'order-by=' 'limit=' 'playlist-id=' -- $argv
+argparse 'order-by=' 'limit=' 'playlist-id=' 'remove' -- $argv
+
+if set -q _flag_remove
+    sqlite3 "$DB" "DELETE FROM playlists WHERE name = '$argv[1]'"
+    exit $status
+end
+
 get-playlist-sorted "$argv[1]" \
     --playlist-id=$_flag_playlist_id \
     --limit=$_flag_limit \

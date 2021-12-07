@@ -24,3 +24,7 @@ complete -f -c yps \
     -l order-by \
     -a "(_yps_order_by)" \
     -d "order the output by field"
+
+complete -f -c yps \
+    -l remove \
+    -d "remove playlist from the database"

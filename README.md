@@ -15,5 +15,6 @@ $ newsletter
 - 🌎 knowledge-map (kmap)
 - 📦 dropbox (load-to-dropbox)
 - 🗞️ newsletter
+- 📚 pdf-picker
 - 🖥️ vagrant-init (vg-init)
 - 🎦 youtube-playlist-sorter (yps)

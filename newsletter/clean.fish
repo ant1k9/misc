@@ -4,13 +4,14 @@ set -l SKIP_TITLES \
     '% engineer %' '%tech lead%' '%Vettery%' '%developer%remote%' '%engineer"' '%engineer,%' \
     '%unsubscribe%' '"Read on the Web"' '"Web Version"' \
     '"0"' '"1"' '"2"' '"3"' '"4"' '"5"' '"6"' '"7"' '"8"' '"9"' '"10"' \
-    '"Postgres Weekly"' '%pgday%' '%pgcon%' '%PostgresConf%' \
-    '%conference%' '%podcast%' '%meetup%' '%talks%' '%summit%' '%meeting%' '%survey%' \
+    '"Postgres Weekly"' '%pgday%' '%pgcon%' '%PostgresConf%' '%Postgres Vision%' \
+    '%conference%' '%podcast%' '%meetup%' '%talks%' '%summit%' '%meeting%' '%survey%' '% talk %' \
     '%KUBE% SIG %' '%agenda%' '"Agenda/Notes: here"' '%announcing%' \
     '%youtube.com%' '%circleci.com%' \
-    '%.net core%' '%spring%' '%php%' \
-    'null' '%released%' '%release note%' \
-    '%Goland%' '%IntelliJ%' '%JetBrains%'
+    '%.net core%' '%spring%' '%php%' '%gui %' '%rails%' '% 2d%' '% 3d%' '%oracle%' '%django%' \
+    'null' '%released%' '%release note%' '%this week%' \
+    '%Goland%' '%IntelliJ%' '%JetBrains%' \
+    '%enterprise%'
 
 set -l SKIP_HREFS \
     '%youtube.com%' '%youtu.be%'

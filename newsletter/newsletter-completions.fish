@@ -22,7 +22,7 @@ complete -f -c newsletter \
     -a stats \
     -d "gets current progress"
 
-complete -f -c newsletter
+complete -f -c newsletter \
     -n "not __fish_seen_subcommand_from $_newsletter_commands" \
     -l "filter" \
     -d "gets next 10 links with filter by title"

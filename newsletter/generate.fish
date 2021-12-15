@@ -6,9 +6,31 @@ function _links_usage
     echo 'Newsletter usage:
     newsletter                      # gets 10 next links from newsletter db
     newsletter help                 # prints help command
+    newsletter send                 # send one link to telegram channel
     newsletter serve                # serve links app as a web page
     newsletter stats                # gets current progress
     newsletter 5 --filter postgres  # gets next 5 links with filter by title'
+end
+
+function _links_send
+    if test -z "$TELEGRAM_BOT_TOKEN"
+        echo "Export telegram bot token to env"; and exit 1
+    end
+    if test -z "$TELEGRAM_CHANNEL"
+        echo "Export telegram channel to env"; and exit 1
+    end
+
+    set -l MESSAGE_TEXT ( \
+        sqlite3 "$LINKS_DB" \
+        "SELECT title, href FROM links WHERE is_finished = 0 ORDER BY RANDOM() LIMIT 1" \
+        | tr -d '"' \
+    )
+    set -l TITLE (echo "$MESSAGE_TEXT" | awk -F '|' '{ print $1 }')
+    set -l LINK (echo "$MESSAGE_TEXT" | awk -F '|' '{ print $2 }')
+
+    curl -i "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage?chat_id=$TELEGRAM_CHANNEL&text=$TITLE%0A$LINK" \
+        | head -1 | grep 200; or exit 1
+    sqlite3 "$LINKS_DB" "UPDATE links SET is_finished = 1 WHERE href = '\"$LINK\"'"
 end
 
 function _links_stats
@@ -42,14 +64,20 @@ if test "$argv" = "help"
 end
 
 # print stats
-if test "$argv" = "stats"
-    _links_stats
+if test "$argv" = "send"
+    _links_send
     exit 0
 end
 
 # print stats
 if test "$argv" = "serve"
     newsletter-app
+    exit 0
+end
+
+# print stats
+if test "$argv" = "stats"
+    _links_stats
     exit 0
 end
 

@@ -26,6 +26,7 @@ end
 if test "$PROGRAM" = "newsletter"
     cp newsletter/generate.fish "$HOME/bin/newsletter"
     cp newsletter/newsletter-app.py "$HOME/bin/newsletter-app"
+    cp newsleetter/newsletter-completions.fish "$HOME/.config/fish/completions/newsletter.fish"
     chmod +x "$HOME/bin/newsletter" "$HOME/bin/newsletter-app"
     sed -i "s:links.sqlite3:$PWD/newsletter/links.sqlite3:g" "$HOME/bin/newsletter"
     sed -i "s:links.sqlite3:$PWD/newsletter/links.sqlite3:g" "$HOME/bin/newsletter-app"

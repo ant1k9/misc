@@ -12,9 +12,10 @@ $ newsletter
 #### Supported scripts
 
 - 📦 misc
+- 👷 agile-cli (agile)
 - 🌎 knowledge-map (kmap)
 - 📦 dropbox (load-to-dropbox)
-- 🗞️ newsletter
+- 🗞️  newsletter
 - 📚 pdf-picker
-- 🖥️ vagrant-init (vg-init)
+- 🖥️  vagrant-init (vg-init)
 - 🎦 youtube-playlist-sorter (yps)

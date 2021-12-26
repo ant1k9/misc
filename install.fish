@@ -12,6 +12,13 @@ if test "$PROGRAM" = "misc"
     sed -i "s:# TODO:$PWD:g" "$HOME/bin/misc"
 end
 
+if test "$PROGRAM" = "agile-cli"
+    mkdir -p "$HOME/.config/agile-cli"
+    cp agile-cli/agile-cli.fish "$HOME/bin/agile"
+    cp agile-cli/agile-completions.fish "$HOME/.config/fish/completions/agile.fish"
+    chmod +x "$HOME/bin/agile"
+end
+
 if test "$PROGRAM" = "knowledge-map"
     cp knowledge-map/kmap.fish "$HOME/bin/kmap"
     cp knowledge-map/kmap-completions.fish "$HOME/.config/fish/completions/kmap.fish"

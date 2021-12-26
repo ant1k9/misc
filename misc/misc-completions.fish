@@ -17,4 +17,4 @@ complete -f -c misc \
 
 complete -f -c misc \
     -n "__fish_seen_subcommand_from install" \
-    -a "(misc list)"
+    -a "(misc _list)"

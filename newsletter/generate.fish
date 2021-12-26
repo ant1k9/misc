@@ -63,13 +63,13 @@ if test "$argv" = "help"
     exit 0
 end
 
-# print stats
+# send a link to telegram channel
 if test "$argv" = "send"
     _links_send
     exit 0
 end
 
-# print stats
+# server the app by HTTP
 if test "$argv" = "serve"
     newsletter-app
     exit 0

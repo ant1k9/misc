@@ -11,18 +11,36 @@ function _agile_usage
     agile year       # current year'
 end
 
+set _today_pattern '+%Y-%m-%d.md'
+set _week_pattern  '+%Y-w%V.md'
+set _month_pattern '+%Y-m%m.md'
+set _year_pattern  '+%Y.md'
+
 function _agile_adapt_filename
     set -l filename "$argv[1]"
     if test "$filename" = "today"
-        date '+%Y-%m-%d.md'
+        date "$_today_pattern"
     else if test "$filename" = "week"
-        date '+%Y-w%V.md'
+        date "$_week_pattern"
     else if test "$filename" = "month"
-        date '+%Y-m%m.md'
+        date "$_month_pattern"
     else if test "$filename" = "year"
-        date '+%Y.md'
+        date "$_year_pattern"
     else
         echo "$filename.md"
+    end
+end
+
+function _agile_actualize
+    set -l date_pattern "$argv[1]"
+    set -l file_pattern "$argv[2]"
+    set today (date "$date_pattern")
+
+    for file in (/bin/ls "$NOTES_DIR/" | egrep "$file_pattern")
+        if test (sh -c "[[ '$file' < '$today' ]] && echo 1")
+            grep '\[ \]' "$NOTES_DIR/$file" >> "$NOTES_DIR/$today"; \
+                and sed -i '/\[ \]/d' "$NOTES_DIR/$file"
+        end
     end
 end
 
@@ -37,6 +55,12 @@ if test "$argv[1]" = "show"
         set markdown_viewer "cat"
     end
     set run_command "$markdown_viewer"
+else if test "$argv[1]" = "actualize"
+    _agile_actualize "$_today_pattern" "[0-9]{4}-[0-9]{2}-[0-9]{2}.md"
+    _agile_actualize "$_week_pattern"  "[0-9]{4}-w[0-9]{2}.md"
+    _agile_actualize "$_month_pattern" "[0-9]{4}-m[0-9]{2}.md"
+    _agile_actualize "$_year_pattern"  "[0-9]{4}.md"
+    exit
 else
     set filename "$argv[1]"
     set run_command "$EDITOR"

@@ -5,5 +5,5 @@ LINK=$(
 )
 
 curl "$LINK" \
-    | pup 'h2#crate-of-the-week + p a json{}' \
+    | pup 'h2:contains("Crate of the Week") + p a json{}' \
     | jq 'map({"href": .href, "title": .text})' > "$LINKS_FILE"

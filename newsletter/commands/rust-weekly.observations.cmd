@@ -5,5 +5,5 @@ LINK=$(
 )
 
 curl "$LINK" \
-    | pup 'h3#observationsthoughts + ul li json{}' \
+    | pup 'h3:contains("Observations") + ul li json{}' \
     | jq 'map({"href": .children[0].href, "title": .children[0].text})' > "$LINKS_FILE"

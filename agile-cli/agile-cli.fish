@@ -39,14 +39,14 @@ function _agile_actualize
     for file in (/bin/ls "$NOTES_DIR/" | egrep "$file_pattern")
         if test (sh -c "[[ '$file' < '$today' ]] && echo 1")
             grep '\[ \]' "$NOTES_DIR/$file" >> "$NOTES_DIR/$today"; \
-                and sed -i '/\[ \]/d' "$NOTES_DIR/$file"
+                and sed -i'' '/\[ \]/d' "$NOTES_DIR/$file"
         end
     end
 end
 
 # main
-if test "$argv[1]" = "show"
-    set filename "$argv[2]"
+if test "$argv[2]" = "show"
+    set filename "$argv[1]"
     set markdown_viewer (which glow 2>/dev/null)
     if test -z "$markdown_viewer"
         set markdown_viewer (which bat 2>/dev/null)
@@ -54,7 +54,18 @@ if test "$argv[1]" = "show"
     if test -z "$markdown_viewer"
         set markdown_viewer "cat"
     end
-    set run_command "$markdown_viewer"
+    alias run_command="$markdown_viewer"
+else if test "$argv[2]" = "done" -o "$argv[2]" = "undone"
+    set filename "$argv[1]"
+    if test (count $argv) -ne 3
+        _agile_usage
+        exit
+    end
+    if test "$argv[2]" = "done"
+        alias run_command="sed -i'' '/$argv[3]/s/\[ \]/\[x\]/g'"
+    else
+        alias run_command="sed -i'' '/$argv[3]/s/\[x\]/\[ \]/g'"
+    end
 else if test "$argv[1]" = "actualize"
     _agile_actualize "$_today_pattern" "[0-9]{4}-[0-9]{2}-[0-9]{2}.md"
     _agile_actualize "$_week_pattern"  "[0-9]{4}-w[0-9]{2}.md"
@@ -63,7 +74,7 @@ else if test "$argv[1]" = "actualize"
     exit
 else
     set filename "$argv[1]"
-    set run_command "$EDITOR"
+    alias run_command="$EDITOR"
 end
 
 if test -z "$filename"
@@ -72,4 +83,4 @@ if test -z "$filename"
 end
 
 set -l filename (_agile_adapt_filename "$filename")
-$run_command "$NOTES_DIR/$filename"
+run_command "$NOTES_DIR/$filename"

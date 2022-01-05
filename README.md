@@ -17,5 +17,6 @@ $ newsletter
 - 📦 dropbox (load-to-dropbox)
 - 🗞️  newsletter
 - 📚 pdf-picker
+- 🔐 secrets
 - 🖥️  vagrant-init (vg-init)
 - 🎦 youtube-playlist-sorter (yps)

@@ -49,6 +49,12 @@ if test "$PROGRAM" = "pdf-picker"
     sed -i "/DATABASE =/ s:'\(.*\)':'$HOME/.config/pdf-picker/library.db':g" "$HOME/bin/pdf-picker"
 end
 
+if test "$PROGRAM" = "secrets"
+    cp secrets/secrets.fish "$HOME/bin/secrets"
+    cp secrets/secrets-completions.fish "$HOME/.config/fish/completions/secrets.fish"
+    chmod +x "$HOME/bin/secrets"
+end
+
 if test "$PROGRAM" = "vagrant-init"
     cp vagrant-init/vagrant-init.fish "$HOME/bin/vg-init"
     cp vagrant-init/vginit-completions.fish "$HOME/.config/fish/completions/vg-init.fish"

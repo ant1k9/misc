@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DB_BACKUP_ARCHIVE="$1"
-DROPBOX_PATH=${DB_BACKUP_ARCHIVE/\/tmp/$DROPBOX_DIRECTORY}
+PAYLOAD_FILE="$1"
+DROPBOX_PATH=${PAYLOAD_FILE/\/tmp/$DROPBOX_DIRECTORY}
+: ${DROPBOX_TOKEN:=$DB_BACKUP_TOKEN}
 
 curl -X POST https://content.dropboxapi.com/2/files/upload \
-    --header "Authorization: Bearer $DB_BACKUP_TOKEN" \
+    --header "Authorization: Bearer $DROPBOX_TOKEN" \
     --header "Content-Type: application/octet-stream" \
     --header "Dropbox-API-Arg: {\"path\": \"$DROPBOX_PATH\",\"mode\": \"add\",\"autorename\": true,\"mute\": false,\"strict_conflict\": false}" \
-    --data-binary @"$DB_BACKUP_ARCHIVE"
+    --data-binary @"$PAYLOAD_FILE"
 
-rm "$DB_BACKUP_ARCHIVE"
+rm "$PAYLOAD_FILE"

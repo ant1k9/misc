@@ -19,15 +19,16 @@ if test "$PROGRAM" = "agile-cli"
     chmod +x "$HOME/bin/agile"
 end
 
+if test "$PROGRAM" = "dropbox"
+    cp dropbox/load-to-dropbox.sh "$HOME/bin/load-to-dropbox"
+    cp dropbox/load-from-dropbox.sh "$HOME/bin/load-from-dropbox"
+    chmod +x "$HOME/bin/load-to-dropbox" "$HOME/bin/load-from-dropbox"
+end
+
 if test "$PROGRAM" = "knowledge-map"
     cp knowledge-map/kmap.fish "$HOME/bin/kmap"
     cp knowledge-map/kmap-completions.fish "$HOME/.config/fish/completions/kmap.fish"
     chmod +x "$HOME/bin/kmap"
-end
-
-if test "$PROGRAM" = "load-to-dropbox"
-    cp dropbox/load-to-dropbox.sh "$HOME/bin/load-to-dropbox"
-    chmod +x "$HOME/bin/load-to-dropbox"
 end
 
 if test "$PROGRAM" = "newsletter"

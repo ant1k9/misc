@@ -51,6 +51,7 @@ if test "$PROGRAM" = "pdf-picker"
 end
 
 if test "$PROGRAM" = "secrets"
+    mkdir -p "$HOME/.config/secrets-cli"
     cp secrets/secrets.fish "$HOME/bin/secrets"
     cp secrets/secrets-completions.fish "$HOME/.config/fish/completions/secrets.fish"
     chmod +x "$HOME/bin/secrets"

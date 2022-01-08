@@ -2,8 +2,10 @@
 function _secrets_usage
     echo \
 "Usage:
-    secrets to-envrc    # convert zip archive to .envrc format
+    secrets from-env    # convert .env format to zip archive
     secrets from-envrc  # convert .envrc format to zip archive
+    secrets to-env      # convert zip archive to .env format
+    secrets to-envrc    # convert zip archive to .envrc format
     secrets get key     # get key from an archive
     secrets list        # list keys from an archive
     secrets load        # load archive from dropbox
@@ -22,21 +24,31 @@ function _list_keys
     unzip -l "$SECRETS_FILE" | tail -n +4 | head -n -2 | awk '{ print $4 }'
 end
 
-function _to_envrc
-    for file in (_list_keys)
-        set -l SECRET_VAR "$file="(_get_value_by_key "$file")
-        if test (grep "$file" .envrc)
-            sed -i'' "/$file/d" .envrc
-        end
-        echo "export $SECRET_VAR" >> .envrc
-    end
-    direnv allow
+function _to_envrc_print
+    echo "export $argv[1]"
 end
 
-function _from_envrc
-    for line in (grep = .envrc | grep -Ev 'SECRETS_FILE|SECRETS_PASS' )
-        set SECRET_NAME (echo "$line" | awk -F'=' '{ print $1 }' | sed 's/export //g')
-        echo "$line" | awk -F'=' '{ print $2 }' > "$SECRET_NAME"
+function _to_env_print
+    echo "$argv[1]"
+end
+
+function _to_env_format
+    set -l ENV_FILE "$argv[1]"
+    set -l print_function "$argv[2]"
+    for file in (_list_keys)
+        set -l SECRET_VAR "$file="(_get_value_by_key "$file")
+        if test (grep "$file" "$ENV_FILE")
+            sed -i'' "/$file/d" "$ENV_FILE"
+        end
+        $print_function "$SECRET_VAR" >> "$ENV_FILE"
+    end
+end
+
+function _from_envformat
+    set -l ENV_FILE "$argv[1]"
+    for line in (grep = "$ENV_FILE" | grep -Ev 'SECRETS_FILE|SECRETS_PASS' )
+        set SECRET_NAME (string split '=' "$line" -f1 | sed 's/export //g')
+        string split '=' "$line" -m1 -f2 > "$SECRET_NAME"
         echo "set timeout -1
         spawn zip -e \"$SECRETS_FILE\" \"$SECRET_NAME\"
         match_max 100000
@@ -60,9 +72,14 @@ function _load_to_dropbox
 end
 
 if test "$argv[1]" = "to-envrc"
-    _to_envrc
+    _to_env_format ".envrc" "_to_envrc_print"
+    direnv allow
 else if test "$argv[1]" = "from-envrc"
-    _from_envrc
+    _from_envformat ".envrc"
+else if test "$argv[1]" = "to-env"
+    _to_env_format ".env" "_to_env_print"
+else if test "$argv[1]" = "from-env"
+    _from_envformat ".env"
 else if test "$argv[1]" = "get"
     _get_value_by_key "$argv[2]"
 else if test "$argv[1]" = "list"

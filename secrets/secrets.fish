@@ -1,12 +1,17 @@
 #!/usr/bin/env fish
 function _secrets_usage
-    echo "Usage:
+    echo \
+"Usage:
     secrets to-envrc    # convert zip archive to .envrc format
     secrets from-envrc  # convert .envrc format to zip archive
     secrets get key     # get key from an archive
     secrets list        # list keys from an archive
     secrets load        # load archive from dropbox
-    secrets sync        # sync archive with dropbox"
+    secrets sync        # sync archive with dropbox
+
+Environment variables:
+    SECRETS_PASS - password to encrypt secrets
+    SECRETS_FILE - archive to upload to dropbox"
 end
 
 function _get_value_by_key

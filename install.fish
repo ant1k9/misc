@@ -42,6 +42,7 @@ end
 
 if test "$PROGRAM" = "pdf-picker"
     git submodule update
+    pip3 install -r pdf-picker/pdf-picker/requirements.txt
     cp pdf-picker/pdf-picker/pdf_picker.py "$HOME/bin/pdf-picker"
     cp pdf-picker/pdf-picker-completions.fish "$HOME/.config/fish/completions/pdf-picker.fish"
     chmod +x "$HOME/bin/pdf-picker"

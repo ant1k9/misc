@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-set NOTES_DIR "$HOME/.config/agile-cli"
+set NOTES_DIR "$HOME/.local/share/agile-cli"
 
 function _agile_usage
     echo 'Usage:
@@ -39,7 +39,7 @@ function _agile_actualize
     for file in (/bin/ls "$NOTES_DIR/" | egrep "$file_pattern")
         if test (sh -c "[[ '$file' < '$today' ]] && echo 1")
             grep '\[ \]' "$NOTES_DIR/$file" >> "$NOTES_DIR/$today"; \
-                and sed -i'' '/\[ \]/d' "$NOTES_DIR/$file"
+                and sed -i'.bak' '/\[ \]/d' "$NOTES_DIR/$file"
         end
     end
 end
@@ -62,15 +62,16 @@ else if test "$argv[2]" = "done" -o "$argv[2]" = "undone"
         exit
     end
     if test "$argv[2]" = "done"
-        alias run_command="sed -i'' '/$argv[3]/s/\[ \]/\[x\]/g'"
+        alias run_command="sed -i'.bak' '/$argv[3]/s/\[ \]/\[x\]/g'"
     else
-        alias run_command="sed -i'' '/$argv[3]/s/\[x\]/\[ \]/g'"
+        alias run_command="sed -i'.bak' '/$argv[3]/s/\[x\]/\[ \]/g'"
     end
 else if test "$argv[1]" = "actualize"
     _agile_actualize "$_today_pattern" "[0-9]{4}-[0-9]{2}-[0-9]{2}.md"
     _agile_actualize "$_week_pattern"  "[0-9]{4}-w[0-9]{2}.md"
     _agile_actualize "$_month_pattern" "[0-9]{4}-m[0-9]{2}.md"
     _agile_actualize "$_year_pattern"  "[0-9]{4}.md"
+    find "$NOTES_DIR" -name '*.bak' -exec rm '{}' \;
     exit
 else
     set filename "$argv[1]"

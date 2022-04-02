@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-set MY_KNOWLEDGE_MAP_HOST "https://my-knowledge-map.herokuapp.com/"
+set MY_KNOWLEDGE_MAP_HOST "http://84.252.133.106"
 
 function _kmap_usage
     echo 'Usage:

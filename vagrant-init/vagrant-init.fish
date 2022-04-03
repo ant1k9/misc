@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set -l INSTALL_DIR # TODO
+set INSTALL_DIR # TODO
 set _boxes ( \
     find "$INSTALL_DIR" -maxdepth 1 -type d -exec basename '{}' \; 2>/dev/null \
         | egrep -v vagrant-init \
@@ -37,8 +37,8 @@ function _install_box
         cd $INSTALL_DIR/$argv[1];
         vagrant up
         vagrant package --output $_box_name.box
-        vagrant box add $_box_name
-        rm $_box_name"
+        vagrant box add --name $_box_name $_box_name.box
+        rm $_box_name.box"
 end
 
 function _init_box

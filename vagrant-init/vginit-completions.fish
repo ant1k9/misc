@@ -1,4 +1,4 @@
-set -l _vginit_commands from install
+set -l _vginit_commands from build
 
 set INSTALL_DIR # TODO
 
@@ -14,7 +14,7 @@ complete -f -c vg-init \
 
 complete -f -c vg-init \
     -n "not __fish_seen_subcommand_from $_vginit_commands" \
-    -a install \
+    -a build \
     -d "build a base image from base Vagrantfiles"
 
 complete -f -c vg-init \

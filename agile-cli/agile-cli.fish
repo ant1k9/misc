@@ -67,10 +67,13 @@ else if test "$argv[2]" = "done" -o "$argv[2]" = "undone"
         alias run_command="sed -i'.bak' '/$argv[3]/s/\[x\]/\[ \]/g'"
     end
 else if test "$argv[1]" = "actualize"
+    # cleaning .bak files to prevent double accounting
+    find "$NOTES_DIR" -name '*.bak' -exec rm '{}' \;
     _agile_actualize "$_today_pattern" "[0-9]{4}-[0-9]{2}-[0-9]{2}.md"
     _agile_actualize "$_week_pattern"  "[0-9]{4}-w[0-9]{2}.md"
     _agile_actualize "$_month_pattern" "[0-9]{4}-m[0-9]{2}.md"
     _agile_actualize "$_year_pattern"  "[0-9]{4}.md"
+    # cleaning .bak files after finish changing files
     find "$NOTES_DIR" -name '*.bak' -exec rm '{}' \;
     exit
 else

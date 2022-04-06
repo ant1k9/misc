@@ -88,3 +88,5 @@ end
 
 set -l filename (_agile_adapt_filename "$filename")
 run_command "$NOTES_DIR/$filename"
+sort -srk2 "$NOTES_DIR/$filename" > "$NOTES_DIR/$filename.bak"
+mv "$NOTES_DIR/$filename.bak" "$NOTES_DIR/$filename"

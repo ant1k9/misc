@@ -45,7 +45,10 @@ function _agile_actualize
 end
 
 # main
+set _make_sort 1
+
 if test "$argv[2]" = "show"
+    set -e _make_sort
     set filename "$argv[1]"
     set markdown_viewer (which glow 2>/dev/null)
     if test -z "$markdown_viewer"
@@ -88,5 +91,8 @@ end
 
 set -l filename (_agile_adapt_filename "$filename")
 run_command "$NOTES_DIR/$filename"
-sort -srk2 "$NOTES_DIR/$filename" > "$NOTES_DIR/$filename.bak"
-mv "$NOTES_DIR/$filename.bak" "$NOTES_DIR/$filename"
+
+if test -n "$_make_sort"
+    sort -srk2 "$NOTES_DIR/$filename" > "$NOTES_DIR/$filename.bak"
+    mv "$NOTES_DIR/$filename.bak" "$NOTES_DIR/$filename"
+end

@@ -6,6 +6,7 @@ function _agile_usage
     agile <project>
     agile show <any> # show the progress
     agile today      # current date
+    agile tomorrow   # next day
     agile week       # current week
     agile month      # current month
     agile year       # current year'
@@ -19,7 +20,9 @@ set _year_pattern  '+%Y.md'
 function _agile_adapt_filename
     set -l filename "$argv[1]"
     if test "$filename" = "today"
-        date "$_today_pattern"
+        date --date today "$_today_pattern"
+    else if test "$filename" = "tomorrow"
+        date --date tomorrow "$_today_pattern"
     else if test "$filename" = "week"
         date "$_week_pattern"
     else if test "$filename" = "month"

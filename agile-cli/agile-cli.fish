@@ -20,7 +20,7 @@ set _year_pattern  '+%Y.md'
 function _agile_adapt_filename
     set -l filename "$argv[1]"
     if test "$filename" = "today"
-        date --date today "$_today_pattern"
+        date "$_today_pattern"
     else if test "$filename" = "tomorrow"
         date --date tomorrow "$_today_pattern"
     else if test "$filename" = "week"

@@ -1,15 +1,20 @@
 #!/usr/bin/env fish
 set NOTES_DIR "$HOME/.local/share/agile-cli"
+set FILESERVER_BASE_URL "http://84.252.133.106/agile/"
 
 function _agile_usage
     echo 'Usage:
     agile <project>
-    agile show <any> # show the progress
-    agile today      # current date
-    agile tomorrow   # next day
-    agile week       # current week
-    agile month      # current month
-    agile year       # current year'
+    agile today                   # current date
+    agile tomorrow                # next day
+    agile week                    # current week
+    agile month                   # current month
+    agile year                    # current year
+    agile <any> show              # show the progress
+    agile actualize               # move undone tasks to current date
+    agile <any> sync              # sync data with server
+    agile <any> done   <pattern>  # mark the task matched by pattern as done
+    agile <any> undone <pattern>  # mark the task matched by pattern as not done'
 end
 
 set _today_pattern '+%Y-%m-%d.md'
@@ -47,12 +52,42 @@ function _agile_actualize
     end
 end
 
+function _sync_with_server
+    set -l filename "$argv[1]"
+
+    echo "provide user:password pair"
+    read -s pass
+    set -l credentials (echo -n "$pass" | base64)
+
+    curl -I "$FILESERVER_BASE_URL/$filename" \
+        -H "Authorization: Basic $credentials" 2>/dev/null \
+        | head -1 | grep 'File not found' > /dev/null
+    if test $status -ne 0
+        curl "$FILESERVER_BASE_URL/$filename" \
+            -H "Authorization: Basic $credentials" \
+            -o "/tmp/$filename" 2>/dev/null
+        for line in (cat "/tmp/$filename")
+            set line (string split ']' "$line" -m1 -f2)
+            grep -F "$line" "$NOTES_DIR/$filename" >/dev/null
+            if test $status -ne 0
+                echo "$line" >> "$NOTES_DIR/$filename"
+            end
+        end
+    end
+
+    $EDITOR "$NOTES_DIR/$filename"
+
+    curl -XPOST "$FILESERVER_BASE_URL/upload" \
+        -H "Authorization: Basic $credentials" \
+        -F "files=@$NOTES_DIR/$filename" 2>/dev/null
+end
+
 # main
 set _make_sort 1
+set filename "$argv[1]"
 
 if test "$argv[2]" = "show"
     set -e _make_sort
-    set filename "$argv[1]"
     set markdown_viewer (which glow 2>/dev/null)
     if test -z "$markdown_viewer"
         set markdown_viewer (which bat 2>/dev/null)
@@ -62,7 +97,6 @@ if test "$argv[2]" = "show"
     end
     alias run_command="$markdown_viewer"
 else if test "$argv[2]" = "done" -o "$argv[2]" = "undone"
-    set filename "$argv[1]"
     if test (count $argv) -ne 3
         _agile_usage
         exit
@@ -82,8 +116,10 @@ else if test "$argv[1]" = "actualize"
     # cleaning .bak files after finish changing files
     find "$NOTES_DIR" -name '*.bak' -exec rm '{}' \;
     exit
+else if test "$argv[2]" = "sync"
+    _sync_with_server (_agile_adapt_filename "$filename")
+    exit
 else
-    set filename "$argv[1]"
     alias run_command="$EDITOR"
 end
 

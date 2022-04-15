@@ -52,6 +52,16 @@ function _agile_actualize
     end
 end
 
+function _agile_clean
+    for file in (/bin/ls "$NOTES_DIR/" | egrep "*.md")
+        grep '\[ \]' "$NOTES_DIR/$file" >/dev/null
+        if test $status -ne 0
+            echo remove "$file"
+            rm "$NOTES_DIR/$file"
+        end
+    end
+end
+
 function _sync_with_server
     set -l filename "$argv[1]"
 
@@ -115,6 +125,9 @@ else if test "$argv[1]" = "actualize"
     _agile_actualize "$_year_pattern"  "[0-9]{4}.md"
     # cleaning .bak files after finish changing files
     find "$NOTES_DIR" -name '*.bak' -exec rm '{}' \;
+    exit
+else if test "$argv[1]" = "clean"
+    _agile_clean
     exit
 else if test "$argv[2]" = "sync"
     _sync_with_server (_agile_adapt_filename "$filename")

@@ -1,7 +1,7 @@
 set NOTES_DIR "$HOME/.local/share/agile-cli"
 
 function _agile_notes
-    echo -e "actualize\ndone\nundone\ntoday\ntomorrow\nweek\nmonth\nyear\nshow\nsync"
+    echo -e "actualize\nclean\ndone\nundone\ntoday\ntomorrow\nweek\nmonth\nyear\nshow\nsync"
     /bin/ls "$NOTES_DIR" | egrep '.md$' | sed 's/.md//g'
 end
 

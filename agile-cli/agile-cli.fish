@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 set NOTES_DIR "$HOME/.local/share/agile-cli"
-set FILESERVER_BASE_URL "http://84.252.133.106/agile/"
+set FILESERVER_BASE_URL "http://$PERSONAL_SERVER_HOST/agile/"
 
 function _agile_usage
     echo 'Usage:

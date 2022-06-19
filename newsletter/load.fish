@@ -1,6 +1,7 @@
 #!/usr/bin/env fish
 
 for i in (seq (jq ". | length" < "$argv[1]"))
+    set -l i (math $i - 1)
     set -l href (jq ".[$i].href" < "$argv[1]")
     set -l title (jq ".[$i].title" < "$argv[1]")
     sqlite3 "links.sqlite3" \

@@ -5,4 +5,4 @@ LINK=$(
 
 curl "https://cpp.libhunt.com$LINK" \
     | pup 'li.project div div json{}' \
-    | jq 'map({"link": .children[0].children[0].children[1].href, "description": .children[1].text }) | map(select(.link != null))' > "$LINKS_FILE"
+    | jq 'map({"href": .children[0].children[0].children[1].href, "title": .children[1].text }) | map(select(.href != null and .title != null))' > "$LINKS_FILE"

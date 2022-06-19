@@ -1,6 +1,6 @@
 LINK=$(
     curl "https://www.cncf.io/kubeweekly/" \
-        | pup 'div.kubeweekly-box a attr{href}' \
+        | pup 'div.kubeweekly-item a attr{href}' \
         | head -1
 )
 

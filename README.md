@@ -15,6 +15,7 @@ $ newsletter
 - 👷 agile-cli (agile)
 - 🌎 knowledge-map (kmap)
 - 📦 dropbox (load-to-dropbox)
+- 🎀 formatter
 - 🗞️  newsletter
 - 📚 pdf-picker
 - 🔐 secrets

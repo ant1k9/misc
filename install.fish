@@ -25,6 +25,21 @@ if test "$PROGRAM" = "dropbox"
     chmod +x "$HOME/bin/load-to-dropbox" "$HOME/bin/load-from-dropbox"
 end
 
+if test "$PROGRAM" = "formatter"
+    set -l CURRENT_DIR (pwd)
+    set -l FORMATTER_DIR formatter-(random)
+
+    cd /tmp
+    mkdir -p "$FORMATTER_DIR"
+    git clone https://github.com/ant1k9/formatter "$FORMATTER_DIR"
+    cd "$FORMATTER_DIR"
+    cargo install --path .
+    cp completions/formatter.fish ~/.config/fish/completions
+
+    cd "$CURRENT_DIR"
+    rm -rf "/tmp/$FORMATTER_DIR"
+end
+
 if test "$PROGRAM" = "knowledge-map"
     cp knowledge-map/kmap.fish "$HOME/bin/kmap"
     cp knowledge-map/kmap-completions.fish "$HOME/.config/fish/completions/kmap.fish"

@@ -19,6 +19,12 @@ if test "$PROGRAM" = "agile-cli"
     chmod +x "$HOME/bin/agile"
 end
 
+if test "$PROGRAM" = "auto-launcher"
+    go install github.com/ant1k9/auto-launcher@latest
+    cp (which auto-launcher) "$HOME/bin/al"
+    al completion fish > "$HOME/.config/fish/completions/al.fish"
+end
+
 if test "$PROGRAM" = "dropbox"
     cp dropbox/load-to-dropbox.sh "$HOME/bin/load-to-dropbox"
     cp dropbox/load-from-dropbox.sh "$HOME/bin/load-from-dropbox"

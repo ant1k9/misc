@@ -19,6 +19,7 @@ $ newsletter
 - 🎀 formatter
 - 🗞️  newsletter
 - 📚 pdf-picker
+- 💾 pg-analyze
 - 🔐 secrets
 - 🖥️  vagrant-init (vg-init)
 - 🎦 youtube-playlist-sorter (yps)

@@ -35,7 +35,7 @@ function _install_box
     set -l _box_name "vginit-$argv[1]"
     fish -c "
         cd $INSTALL_DIR/$argv[1];
-        vagrant up
+        vagrant up --provider virtualbox
         vagrant package --output $_box_name.box
         vagrant box add --name $_box_name $_box_name.box
         rm $_box_name.box"

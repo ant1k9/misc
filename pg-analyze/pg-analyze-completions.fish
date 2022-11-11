@@ -8,7 +8,8 @@ set -l _pg_analyze_commands \
     queries-to-optimize \
     long-running-queries \
     table-accesses \
-    full-overview
+    full-overview \
+    help
 
 complete -f pg-analyze \
     -n "not __fish_seen_subcommand_from $_pg_analyze_commands" \

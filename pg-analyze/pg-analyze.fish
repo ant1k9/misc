@@ -3,8 +3,19 @@ set PG_ANALYZE_TEMPORARY_CONFIG_FILE /tmp/.pg-analyze.db.credentials
 
 function _pg_analyze_usage
     echo 'Usage:
-    pg-analyze setup <db-dsn>
-    pg-analyze database-size'
+    pg-analyze <command>
+
+Commands:
+    setup <db-dsn>       - Setup database connection
+    cache-hit-ratio      - Cache hit ratio for tables and indexes
+    database-size        - Size of tables and indexes
+    foreign-keys         - Number of foreign keys for all tables
+    full-overview        - Full overview including most of pg-analyze subcommands
+    index-usage          - Index usage
+    long-running-queries - Current long-running queries
+    queries-to-optimize  - The top 5 queries that could be optimized
+    table-accesses       - Number of scans for tables
+    unused-indexes       - Unused indexes for current workload'
 end
 
 function _setup
@@ -225,4 +236,6 @@ else if test "$argv[1]" = "table-accesses"
     _table_accesses
 else if test "$argv[1]" = "full-overview"
     _full_overview
+else 
+    _pg_analyze_usage
 end

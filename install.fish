@@ -5,6 +5,22 @@ if test (count $argv) -eq 1
     set PROGRAM $argv[1]
 end
 
+function _install_rust_package
+    set -l PACKAGE "$argv[1]"
+    set -l CURRENT_DIR (pwd)
+    set -l PACKAGE_DIR $PACKAGE-(random)
+
+    cd /tmp
+    mkdir -p "$PACKAGE_DIR"
+    git clone "https://github.com/ant1k9/$PACKAGE" "$PACKAGE_DIR"
+    cd "$PACKAGE_DIR"
+    cargo install --path .
+    cp "completions/$PACKAGE.fish" ~/.config/fish/completions
+
+    cd "$CURRENT_DIR"
+    rm -rf "/tmp/$PACKAGE_DIR"
+end
+
 if test "$PROGRAM" = "misc"
     cp misc/misc.fish "$HOME/bin/misc"
     cp misc/misc-completions.fish "$HOME/.config/fish/completions/misc.fish"
@@ -31,19 +47,8 @@ if test "$PROGRAM" = "dropbox"
     chmod +x "$HOME/bin/load-to-dropbox" "$HOME/bin/load-from-dropbox"
 end
 
-if test "$PROGRAM" = "formatter"
-    set -l CURRENT_DIR (pwd)
-    set -l FORMATTER_DIR formatter-(random)
-
-    cd /tmp
-    mkdir -p "$FORMATTER_DIR"
-    git clone https://github.com/ant1k9/formatter "$FORMATTER_DIR"
-    cd "$FORMATTER_DIR"
-    cargo install --path .
-    cp completions/formatter.fish ~/.config/fish/completions
-
-    cd "$CURRENT_DIR"
-    rm -rf "/tmp/$FORMATTER_DIR"
+if test "$PROGRAM" = "formatter" -o "$PROGRAM" = "noter"
+    _install_rust_package "$PROGRAM"
 end
 
 if test "$PROGRAM" = "knowledge-map"

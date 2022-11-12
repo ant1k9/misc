@@ -18,6 +18,7 @@ $ newsletter
 - 📦 dropbox (load-to-dropbox)
 - 🎀 formatter
 - 🗞️  newsletter
+- ✏️  noter
 - 📚 pdf-picker
 - 💾 pg-analyze
 - 🔐 secrets

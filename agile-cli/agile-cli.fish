@@ -132,6 +132,8 @@ else if test "$argv[1]" = "clean"
 else if test "$argv[2]" = "sync"
     _sync_with_server (_agile_adapt_filename "$filename")
     exit
+else if test "$argv[2]" = "rm"
+    alias run_command="rm"
 else
     alias run_command="$EDITOR"
 end
@@ -144,7 +146,7 @@ end
 set -l filename (_agile_adapt_filename "$filename")
 run_command "$NOTES_DIR/$filename"
 
-if test -n "$_make_sort"
+if test -f "$NOTES_DIR/$filename" -a -n "$_make_sort"
     sort -srk2 "$NOTES_DIR/$filename" > "$NOTES_DIR/$filename.bak"
     mv "$NOTES_DIR/$filename.bak" "$NOTES_DIR/$filename"
 end

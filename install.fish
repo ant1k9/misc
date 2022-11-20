@@ -5,7 +5,7 @@ if test (count $argv) -eq 1
     set PROGRAM $argv[1]
 end
 
-function _install_rust_package
+function _install_package
     set -l PACKAGE "$argv[1]"
     set -l CURRENT_DIR (pwd)
     set -l PACKAGE_DIR $PACKAGE-(random)
@@ -14,11 +14,21 @@ function _install_rust_package
     mkdir -p "$PACKAGE_DIR"
     git clone "https://github.com/ant1k9/$PACKAGE" "$PACKAGE_DIR"
     cd "$PACKAGE_DIR"
-    cargo install --path .
+
+    echo "Installing $PACKAGE..."
+    sh -c "$argv[2]"
     cp "completions/$PACKAGE.fish" ~/.config/fish/completions
 
     cd "$CURRENT_DIR"
     rm -rf "/tmp/$PACKAGE_DIR"
+end
+
+function _install_rust_package
+    _install_package "$argv[1]" "cargo install --path ."
+end
+
+function _install_make_package
+    _install_package "$argv[1]" "make install"
 end
 
 if test "$PROGRAM" = "misc"
@@ -33,6 +43,10 @@ if test "$PROGRAM" = "agile-cli"
     cp agile-cli/agile-cli.fish "$HOME/bin/agile"
     cp agile-cli/agile-completions.fish "$HOME/.config/fish/completions/agile.fish"
     chmod +x "$HOME/bin/agile"
+end
+
+if test "$PROGRAM" = "aliasme"
+    _install_make_package "$PROGRAM"
 end
 
 if test "$PROGRAM" = "auto-launcher"

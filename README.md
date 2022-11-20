@@ -13,6 +13,7 @@ $ newsletter
 
 - 📦 misc
 - 👷 agile-cli (agile)
+- 💕 aliasme
 - 🤖 auto-launcher (al)
 - 🌎 knowledge-map (kmap)
 - 📦 dropbox (load-to-dropbox)

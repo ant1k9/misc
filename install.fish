@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 set -l PROGRAM
-if test (count $argv) -eq 1
+if test (count $argv) -ge 1
     set PROGRAM $argv[1]
 end
 
@@ -28,7 +28,7 @@ function _install_rust_package
 end
 
 function _install_make_package
-    _install_package "$argv[1]" "make install"
+    _install_package "$argv[1]" "make install $argv[2..]"
 end
 
 if test "$PROGRAM" = "misc"
@@ -48,6 +48,15 @@ end
 if test "$PROGRAM" = "aliasme"
     _install_make_package "$PROGRAM"
 end
+
+if test "$PROGRAM" = "aliasme-local"
+    if test (count $argv) -eq 1
+        echo provide folder to install aliasme-local
+        return
+    end
+    _install_make_package "aliasme" "EXTRAFLAGS='-DALIASME_DIRECTORY=\\\"$argv[2]\\\"'"
+end
+
 
 if test "$PROGRAM" = "auto-launcher"
     go install github.com/ant1k9/auto-launcher@latest

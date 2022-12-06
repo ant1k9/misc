@@ -46,15 +46,11 @@ if test "$PROGRAM" = "agile-cli"
 end
 
 if test "$PROGRAM" = "aliasme"
-    _install_make_package "$PROGRAM"
-end
-
-if test "$PROGRAM" = "aliasme-local"
     if test (count $argv) -eq 1
-        echo provide folder to install aliasme-local
-        return
+        _install_make_package "$PROGRAM"
+    else
+        _install_make_package "aliasme" "EXTRAFLAGS='-DALIASME_DIRECTORY=\\\"$argv[2]\\\"'"
     end
-    _install_make_package "aliasme" "EXTRAFLAGS='-DALIASME_DIRECTORY=\\\"$argv[2]\\\"'"
 end
 
 

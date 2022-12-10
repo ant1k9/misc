@@ -104,7 +104,7 @@ end
 if test "$PROGRAM" = "pg-analyze"
     cp pg-analyze/pg-analyze.fish "$HOME/bin/pg-analyze"
     cp pg-analyze/pg-analyze-completions.fish "$HOME/.config/fish/completions/pg-analyze.fish"
-    chmod +x "$HOME/bin/secrets"
+    chmod +x "$HOME/bin/pg-analyze"
 end
 
 if test "$PROGRAM" = "secrets"

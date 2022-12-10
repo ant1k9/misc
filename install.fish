@@ -53,11 +53,16 @@ if test "$PROGRAM" = "aliasme"
     end
 end
 
-
 if test "$PROGRAM" = "auto-launcher"
     go install github.com/ant1k9/auto-launcher@latest
     cp (which auto-launcher) "$HOME/bin/al"
     al completion fish > "$HOME/.config/fish/completions/al.fish"
+end
+
+if test "$PROGRAM" = "blog-notifier"
+    cp blog-notifier/blog-notifier.fish "$HOME/bin/blog-notifier"
+    cp blog-notifier/blog-notifier-completions.fish "$HOME/.config/fish/completions/blog-notifier.fish"
+    chmod +x "$HOME/bin/blog-notifier"
 end
 
 if test "$PROGRAM" = "dropbox"

@@ -1,6 +1,7 @@
 set -l _pg_analyze_commands \
     setup \
     database-size \
+    database-bloat \
     foreign-keys \
     cache-hit-ratio \
     index-usage \
@@ -15,6 +16,11 @@ complete -f pg-analyze \
     -n "not __fish_seen_subcommand_from $_pg_analyze_commands" \
     -a setup \
     -d "Setup database connection"
+
+complete -f pg-analyze \
+    -n "not __fish_seen_subcommand_from $_pg_analyze_commands" \
+    -a database-bloat \
+    -d "Analyze bloat for database"
 
 complete -f pg-analyze \
     -n "not __fish_seen_subcommand_from $_pg_analyze_commands" \

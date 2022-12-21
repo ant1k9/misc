@@ -54,7 +54,7 @@ if test "$PROGRAM" = "aliasme"
 end
 
 if test "$PROGRAM" = "auto-launcher"
-    go install github.com/ant1k9/auto-launcher@latest
+    go install github.com/ant1k9/auto-launcher/cmd/auto-launcher@latest
     cp (which auto-launcher) "$HOME/bin/al"
     al completion fish > "$HOME/.config/fish/completions/al.fish"
 end

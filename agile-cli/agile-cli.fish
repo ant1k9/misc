@@ -99,7 +99,7 @@ set filename "$argv[1]"
 
 if test "$argv[2]" = "show"
     set -e _make_sort
-    set markdown_viewer (which glow 2>/dev/null)
+    set markdown_viewer (which glow 2>/dev/null)" -s auto "
     if test -z "$markdown_viewer"
         set markdown_viewer (which bat 2>/dev/null)
     end

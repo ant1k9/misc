@@ -13,6 +13,7 @@ function _agile_usage
     agile <any> show              # show the progress
     agile <any> add               # add a task to the list
     agile <any> rm                # remove file with progress
+    agile <any> pop               # remove a task from the list
     agile actualize               # move undone tasks to current date
     agile <any> sync              # sync data with server
     agile <any> done   <pattern>  # mark the task matched by pattern as done
@@ -136,6 +137,9 @@ else if test "$argv[2]" = "sync"
     exit
 else if test "$argv[2]" = "add"
     echo "1. [ ] $argv[3..]" >> "$NOTES_DIR"/(_agile_adapt_filename "$filename")
+    exit
+else if test "$argv[2]" = "pop"
+    sed -i "/$argv[3..]/d" "$NOTES_DIR"/(_agile_adapt_filename "$filename")
     exit
 else if test "$argv[2]" = "rm"
     alias run_command="rm"

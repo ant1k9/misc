@@ -7,7 +7,7 @@ complete -f -c repeat \
 	-d "continue executions despite error from command"
 
 complete -f -c repeat \
-	-d "only-diff" \
+	-l "only-diff" \
 	-d "refresh screen only if output has diff"
 
 complete -f -c repeat \

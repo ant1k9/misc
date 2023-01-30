@@ -24,6 +24,7 @@ $ newsletter
 - ✏️  noter
 - 📚 pdf-picker
 - 💾 pg-analyze
+- 🔁 repeat
 - 🔐 secrets
 - 🖥️  vagrant-init (vg-init)
 - 🎦 youtube-playlist-sorter (yps)

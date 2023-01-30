@@ -114,6 +114,12 @@ if test "$PROGRAM" = "pg-analyze"
     chmod +x "$HOME/bin/pg-analyze"
 end
 
+if test "$PROGRAM" = "repeat"
+    cp repeat/repeat.fish "$HOME/bin/repeat"
+    cp repeat/repeat-completions.fish "$HOME/.config/fish/completions/repeat.fish"
+    chmod +x "$HOME/bin/repeat"
+end
+
 if test "$PROGRAM" = "secrets"
     cp secrets/secrets.fish "$HOME/bin/secrets"
     cp secrets/secrets-completions.fish "$HOME/.config/fish/completions/secrets.fish"

@@ -20,6 +20,10 @@ function _bookmarks_commands
 end
 
 complete -f -c bookmarks \
+    -n "not __fish_seen_subcommand_from (_bookmarks_notes); and not __fish_seen_subcommand_from (_bookmarks_commands)" \
+    -a "help"
+
+complete -f -c bookmarks \
     -n "not __fish_seen_subcommand_from (_bookmarks_notes)" \
     -a "(_bookmarks_notes)"
 

@@ -19,6 +19,10 @@ function _list_tasks
 end
 
 complete -f -c agile \
+    -n "not __fish_seen_subcommand_from (_agile_notes_commands); and not __fish_seen_subcommand_from (_agile_notes_lists)" \
+    -a "help"
+
+complete -f -c agile \
     -n "not __fish_seen_subcommand_from (_agile_notes_lists)" \
     -a "(_agile_notes_lists)"
 

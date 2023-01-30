@@ -36,6 +36,11 @@ function _get_link
 end
 
 # main
+if test "$argv[1]" = "help"
+    _bookmarks_usage
+    exit
+end
+
 set filename "$argv[1]"
 
 if test "$argv[2]" = "show"

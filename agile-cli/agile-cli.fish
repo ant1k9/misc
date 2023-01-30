@@ -96,6 +96,11 @@ function _sync_with_server
 end
 
 # main
+if test "$argv[1]" = "help"
+    _agile_usage
+    exit
+end
+
 set _make_sort 1
 set filename "$argv[1]"
 

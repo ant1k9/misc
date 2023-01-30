@@ -17,12 +17,14 @@ end
 
 function _add_bookmark
     set -l filename "$argv[1]"
-    set -l name "$argv[2]"
+    set -l title "$argv[2]"
     set -l link "$argv[3]"
-    if test -z "$link"
-        echo "- $name" >> $filename
+    if test -z "$title"
+        echo "provide bookmark title"
+    else if test -z "$link"
+        echo "- $title" >> $filename
     else
-        echo "- [$name]($link)" >> $filename
+        echo "- [$title]($link)" >> $filename
     end
 end
 

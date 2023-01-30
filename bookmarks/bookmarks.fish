@@ -1,6 +1,5 @@
 #!/usr/bin/env fish
 set NOTES_DIR "$HOME/.local/share/bookmarks"
-set FILESERVER_BASE_URL "http://$PERSONAL_SERVER_HOST/bookmarks"
 
 function _bookmarks_usage
     echo 'Usage:
@@ -28,6 +27,12 @@ function _add_bookmark
     end
 end
 
+function _get_link
+    set -l filename "$argv[1]"
+    set -l title "$argv[2]"
+    grep "$title" "$filename" | grep -oP '\(\K([^\)]+)'
+end
+
 # main
 set filename "$argv[1]"
 
@@ -43,6 +48,11 @@ if test "$argv[2]" = "show"
     alias run_command="$markdown_viewer"
 else if test "$argv[2]" = "add"
     _add_bookmark "$NOTES_DIR"/(_bookmarks_adapt_filename "$filename") "$argv[3]" "$argv[4]"
+    exit
+else if test "$argv[2]" = "get"
+    if ! test -z "$argv[3]"
+        _get_link "$NOTES_DIR"/(_bookmarks_adapt_filename "$filename") "$argv[3..]"
+    end
     exit
 else if test "$argv[2]" = "rm"
     alias run_command="rm"

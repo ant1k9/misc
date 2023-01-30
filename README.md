@@ -16,6 +16,7 @@ $ newsletter
 - 💕 aliasme
 - 🤖 auto-launcher (al)
 - 👀 blog-notifier
+- 🔖 bookmark
 - 🌎 knowledge-map (kmap)
 - 📦 dropbox (load-to-dropbox)
 - 🎀 formatter

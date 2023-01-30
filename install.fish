@@ -65,6 +65,13 @@ if test "$PROGRAM" = "blog-notifier"
     chmod +x "$HOME/bin/blog-notifier"
 end
 
+if test "$PROGRAM" = "bookmarks"
+    mkdir -p "$HOME/.local/share/bookmarks"
+    cp bookmarks/bookmarks.fish "$HOME/bin/bookmarks"
+    cp bookmarks/bookmarks-completions.fish "$HOME/.config/fish/completions/bookmarks.fish"
+    chmod +x "$HOME/bin/bookmarks"
+end
+
 if test "$PROGRAM" = "dropbox"
     cp dropbox/load-to-dropbox.sh "$HOME/bin/load-to-dropbox"
     cp dropbox/load-from-dropbox.sh "$HOME/bin/load-from-dropbox"

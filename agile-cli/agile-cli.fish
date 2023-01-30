@@ -11,6 +11,7 @@ function _agile_usage
     agile month                   # current month
     agile year                    # current year
     agile <any> show              # show the progress
+    agile <any> add               # add a task to the list
     agile <any> rm                # remove file with progress
     agile actualize               # move undone tasks to current date
     agile <any> sync              # sync data with server
@@ -132,6 +133,9 @@ else if test "$argv[1]" = "clean"
     exit
 else if test "$argv[2]" = "sync"
     _sync_with_server (_agile_adapt_filename "$filename")
+    exit
+else if test "$argv[2]" = "add"
+    echo "1. [ ] $argv[3..]" >> "$NOTES_DIR"/(_agile_adapt_filename "$filename")
     exit
 else if test "$argv[2]" = "rm"
     alias run_command="rm"

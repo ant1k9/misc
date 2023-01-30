@@ -4,10 +4,12 @@ set NOTES_DIR "$HOME/.local/share/bookmarks"
 function _bookmarks_usage
     echo 'Usage:
     bookmarks <project>
-    bookmarks <project> add <name>
-    bookmarks <project> add <name> <link>
-    bookmarks <project> rm
-    bookmarks <project> show'
+    bookmarks <project> add <name>          # add a new bookmark without link
+    bookmarks <project> add <name> <link>   # add a new bookmark with a link
+    bookmarks <project> get <name>          # get a link for item in a list
+    bookmarks <project> open <name>         # open a link for item in a list in a browser
+    bookmarks <project> rm                  # remove bookmark list
+    bookmarks <project> show                # list bookmarks'
 end
 
 function _bookmarks_adapt_filename
@@ -29,7 +31,7 @@ end
 
 function _get_link
     set -l filename "$argv[1]"
-    set -l title "$argv[2]"
+    set -l title (echo "$argv[2]" | cut -d' ' -f2-)
     grep "$title" "$filename" | grep -oP '\(\K([^\)]+)'
 end
 
@@ -49,9 +51,13 @@ if test "$argv[2]" = "show"
 else if test "$argv[2]" = "add"
     _add_bookmark "$NOTES_DIR"/(_bookmarks_adapt_filename "$filename") "$argv[3]" "$argv[4]"
     exit
-else if test "$argv[2]" = "get"
+else if test "$argv[2]" = "get" -o "$argv[2]" = "open"
     if ! test -z "$argv[3]"
-        _get_link "$NOTES_DIR"/(_bookmarks_adapt_filename "$filename") "$argv[3..]"
+        set -l LINK (_get_link "$NOTES_DIR"/(_bookmarks_adapt_filename "$filename") "$argv[3..]")
+        echo "$LINK"
+        if test "$argv[2]" = "open"
+            open "$LINK"
+        end
     end
     exit
 else if test "$argv[2]" = "rm"

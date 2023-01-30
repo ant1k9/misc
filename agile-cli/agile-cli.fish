@@ -11,6 +11,7 @@ function _agile_usage
     agile month                   # current month
     agile year                    # current year
     agile <any> show              # show the progress
+    agile <any> rm                # remove file with progress
     agile actualize               # move undone tasks to current date
     agile <any> sync              # sync data with server
     agile <any> done   <pattern>  # mark the task matched by pattern as done

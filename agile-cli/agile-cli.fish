@@ -48,7 +48,7 @@ function _agile_actualize
     set today (date "$date_pattern")
 
     for file in (/bin/ls "$NOTES_DIR/" | egrep "$file_pattern")
-        if test (sh -c "[[ '$file' < '$today' ]] && echo 1")
+        if test (bash -c "[[ '$file' < '$today' ]] && echo 1")
             grep '\[ \]' "$NOTES_DIR/$file" >> "$NOTES_DIR/$today"; \
                 and sed -i'.bak' '/\[ \]/d' "$NOTES_DIR/$file"
         end
@@ -119,10 +119,11 @@ else if test "$argv[2]" = "done" -o "$argv[2]" = "undone"
         _agile_usage
         exit
     end
+    set -l SEARCH_PATTERN (echo "$argv[3]" | sed -e 's:/:\\\\/:g; s:\[:\\\\[:g; s:\]:\\\\]:g')
     if test "$argv[2]" = "done"
-        alias run_command="sed -i'.bak' '/$argv[3]/s/\[ \]/\[x\]/g'"
+        alias run_command="sed -i'.bak' '/$SEARCH_PATTERN/s#\[ \]#\[x\]#g'"
     else
-        alias run_command="sed -i'.bak' '/$argv[3]/s/\[x\]/\[ \]/g'"
+        alias run_command="sed -i'.bak' '/$SEARCH_PATTERN/s#\[x\]#\[ \]#g'"
     end
 else if test "$argv[1]" = "actualize"
     # cleaning .bak files to prevent double accounting

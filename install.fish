@@ -78,7 +78,7 @@ if test "$PROGRAM" = "dropbox"
     chmod +x "$HOME/bin/load-to-dropbox" "$HOME/bin/load-from-dropbox"
 end
 
-if test "$PROGRAM" = "formatter" -o "$PROGRAM" = "noter"
+if test "$PROGRAM" = "formatter" -o "$PROGRAM" = "noter" -o "$PROGRAM" = "backup-tool"
     _install_rust_package "$PROGRAM"
 end
 

@@ -15,6 +15,7 @@ $ newsletter
 - 👷 agile-cli (agile)
 - 💕 aliasme
 - 🤖 auto-launcher (al)
+- 🧰 backup-tool (backup)
 - 👀 blog-notifier
 - 🔖 bookmark
 - 🌎 knowledge-map (kmap)

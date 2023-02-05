@@ -59,6 +59,11 @@ if test "$PROGRAM" = "auto-launcher"
     al completion fish > "$HOME/.config/fish/completions/al.fish"
 end
 
+if test "$PROGRAM" = "auto-builder"
+    go install github.com/ant1k9/auto-launcher/cmd/auto-launcher@latest
+    cp (which auto-builder) "$HOME/bin/bld"
+end
+
 if test "$PROGRAM" = "blog-notifier"
     cp blog-notifier/blog-notifier.fish "$HOME/bin/blog-notifier"
     cp blog-notifier/blog-notifier-completions.fish "$HOME/.config/fish/completions/blog-notifier.fish"

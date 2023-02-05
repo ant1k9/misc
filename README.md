@@ -12,8 +12,9 @@ $ newsletter
 #### Supported scripts
 
 - 📦 misc
-- 👷 agile-cli (agile)
+- 📋 agile-cli (agile)
 - 💕 aliasme
+- 👷 auto-builder (bld)
 - 🤖 auto-launcher (al)
 - 🧰 backup-tool (backup)
 - 👀 blog-notifier

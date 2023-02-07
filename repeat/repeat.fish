@@ -48,6 +48,8 @@ else
                 clear
                 mv "$TMP_FILE" "$MASTERCOPY"
                 cat "$MASTERCOPY"
+            else
+                rm "$TMP_FILE"
             end
         else
             clear

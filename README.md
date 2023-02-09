@@ -18,7 +18,8 @@ $ newsletter
 - 🤖 auto-launcher (al)
 - 🧰 backup-tool (backup)
 - 👀 blog-notifier
-- 🔖 bookmark
+- 🔖 bookmarks
+- 📺 daily-dashboard
 - 🌎 knowledge-map (kmap)
 - 📦 dropbox (load-to-dropbox)
 - 🎀 formatter

@@ -1,5 +1,8 @@
 #!/usr/bin/env fish
 set NOTES_DIR "$HOME/.local/share/bookmarks"
+if set -q BOOKMARKS_NOTES_DIR
+    set NOTES_DIR "$BOOKMARKS_NOTES_DIR"
+end
 
 function _bookmarks_usage
     echo 'Usage:

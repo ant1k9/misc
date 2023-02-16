@@ -20,6 +20,7 @@ $ newsletter
 - 👀 blog-notifier
 - 🔖 bookmarks
 - 📺 daily-dashboard
+- 📆 diary
 - 🌎 knowledge-map (kmap)
 - 📦 dropbox (load-to-dropbox)
 - 🎀 formatter

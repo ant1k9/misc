@@ -87,7 +87,8 @@ end
 if test "$PROGRAM" = "formatter" \
     -o "$PROGRAM" = "noter" \
     -o "$PROGRAM" = "backup-tool" \
-    -o "$PROGRAM" = "daily-dashboard"
+    -o "$PROGRAM" = "daily-dashboard" \
+    -o "$PROGRAM" = "diary"
     _install_rust_package "$PROGRAM"
 end
 

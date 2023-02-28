@@ -60,7 +60,7 @@ if test "$PROGRAM" = "auto-launcher"
 end
 
 if test "$PROGRAM" = "auto-builder"
-    go install github.com/ant1k9/auto-launcher/cmd/auto-launcher@latest
+    go install github.com/ant1k9/auto-launcher/cmd/auto-builder@latest
     cp (which auto-builder) "$HOME/bin/bld"
 end
 

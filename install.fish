@@ -81,6 +81,8 @@ end
 if test "$PROGRAM" = "dropbox"
     cp dropbox/load-to-dropbox.sh "$HOME/bin/load-to-dropbox"
     cp dropbox/load-from-dropbox.sh "$HOME/bin/load-from-dropbox"
+    go install github.com/ant1k9/deposit-watcher/cmd/rotate-backups@latest
+    mv "$HOME/go/bin/rotate-backups" "$HOME/bin"
     chmod +x "$HOME/bin/load-to-dropbox" "$HOME/bin/load-from-dropbox"
 end
 

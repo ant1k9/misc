@@ -11,12 +11,23 @@ function _list_link_titles
     end
 end
 
+function _list_terms
+    set -l BOOKMARK_NAME (commandline | awk '{ print $2 }')
+    if test -f "$NOTES_DIR/$BOOKMARK_NAME.md"
+        set -l counter 1
+        for line in (grep -oP -- "- (.*) - " "$NOTES_DIR/$BOOKMARK_NAME.md" | sed 's: \?- ::g')
+            echo "$counter. $line"
+            set -l counter (math "$counter + 1")
+        end
+    end
+end
+
 function _bookmarks_notes
     /bin/ls "$NOTES_DIR" | egrep '.md$' | sed 's/.md//g'
 end
 
 function _bookmarks_commands
-    echo -e "add\nget\nopen\nrm\nshow"
+    echo -e "add\nget\nopen\nrm\nshow\nexplain"
 end
 
 complete -f -c bookmarks-notes \
@@ -34,3 +45,7 @@ complete -f -c bookmarks-notes \
 complete -f -c bookmarks-notes \
     -n "__fish_seen_subcommand_from get open" \
     -a "(_list_link_titles)"
+
+complete -f -c bookmarks-notes \
+    -n "__fish_seen_subcommand_from explain" \
+    -a "(_list_terms)"

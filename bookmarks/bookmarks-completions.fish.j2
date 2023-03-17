@@ -1,4 +1,4 @@
-set NOTES_DIR "$HOME/.local/share/bookmarks"
+set NOTES_DIR "{{ dir }}"
 
 function _list_link_titles
     set -l BOOKMARK_NAME (commandline | awk '{ print $2 }')
@@ -30,22 +30,22 @@ function _bookmarks_commands
     echo -e "add\nget\nopen\nrm\nshow\nexplain"
 end
 
-complete -f -c bookmarks \
+complete -f -c {{ cmd }} \
     -n "not __fish_seen_subcommand_from (_bookmarks_notes); and not __fish_seen_subcommand_from (_bookmarks_commands)" \
     -a "help"
 
-complete -f -c bookmarks \
+complete -f -c {{ cmd }} \
     -n "not __fish_seen_subcommand_from (_bookmarks_notes)" \
     -a "(_bookmarks_notes)"
 
-complete -f -c bookmarks \
+complete -f -c {{ cmd }} \
     -n "__fish_seen_subcommand_from (_bookmarks_notes); and not __fish_seen_subcommand_from (_bookmarks_commands)" \
     -a "(_bookmarks_commands)"
 
-complete -f -c bookmarks \
+complete -f -c {{ cmd }} \
     -n "__fish_seen_subcommand_from get open" \
     -a "(_list_link_titles)"
 
-complete -f -c bookmarks \
+complete -f -c {{ cmd }} \
     -n "__fish_seen_subcommand_from explain" \
     -a "(_list_terms)"

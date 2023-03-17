@@ -73,8 +73,14 @@ end
 if test "$PROGRAM" = "bookmarks"
     mkdir -p "$HOME/.local/share/bookmarks"
     cp bookmarks/bookmarks.fish "$HOME/bin/bookmarks"
-    cp bookmarks/bookmarks-completions.fish "$HOME/.config/fish/completions/bookmarks.fish"
-    cp bookmarks/bookmarks-notes-completions.fish "$HOME/.config/fish/completions/bookmarks-notes.fish"
+    jinja \
+        -D cmd bookmarks \
+        -D dir "$HOME/.local/share/bookmarks" \
+        bookmarks/bookmarks-completions.fish.j2 > "$HOME/.config/fish/completions/bookmarks.fish"
+    jinja \
+        -D cmd bookmarks-notes \
+        -D dir "$HOME/bookmarks" \
+        bookmarks/bookmarks-completions.fish.j2 > "$HOME/.config/fish/completions/bookmarks-notes.fish"
     chmod +x "$HOME/bin/bookmarks"
 end
 

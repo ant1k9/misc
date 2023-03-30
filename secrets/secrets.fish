@@ -49,14 +49,7 @@ function _from_envformat
     for line in (grep = "$ENV_FILE" | grep -Ev 'SECRETS_FILE|SECRETS_PASS' )
         set SECRET_NAME (string split '=' "$line" -f1 | sed 's/export //g')
         string split '=' "$line" -m1 -f2 > "$SECRET_NAME"
-        echo "set timeout -1
-        spawn zip -e \"$SECRETS_FILE\" \"$SECRET_NAME\"
-        match_max 100000
-        expect -exact \"Enter password: \"
-        send -- \"$SECRETS_PASS\r\"
-        expect -exact \"Verify password: \"
-        send -- \"$SECRETS_PASS\r\"
-        expect eof" | expect
+        zip -P "$SECRETS_PASS" "$SECRETS_FILE" "$SECRET_NAME"
         rm "$SECRET_NAME"
     end
 end

@@ -47,7 +47,7 @@ function _agile_actualize
     set -l file_pattern "$argv[2]"
     set today (date "$date_pattern")
 
-    for file in (/bin/ls "$NOTES_DIR/" | egrep "$file_pattern")
+    for file in (/bin/ls "$NOTES_DIR/" | grep -E "$file_pattern")
         if test (bash -c "[[ '$file' < '$today' ]] && echo 1")
             grep '\[ \]' "$NOTES_DIR/$file" >> "$NOTES_DIR/$today"; \
                 and sed -i'.bak' '/\[ \]/d' "$NOTES_DIR/$file"
@@ -56,7 +56,7 @@ function _agile_actualize
 end
 
 function _agile_clean
-    for file in (/bin/ls "$NOTES_DIR/" | egrep "*.md")
+    for file in (/bin/ls "$NOTES_DIR/" | grep -E "*.md")
         grep '\[ \]' "$NOTES_DIR/$file" >/dev/null
         if test $status -ne 0
             echo remove "$file"

@@ -3,7 +3,7 @@
 set INSTALL_DIR # TODO
 set _boxes ( \
     find "$INSTALL_DIR" -maxdepth 1 -type d -exec basename '{}' \; 2>/dev/null \
-        | egrep -v vagrant-init \
+        | grep -E -v vagrant-init \
 )
 
 function _usage

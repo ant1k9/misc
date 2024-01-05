@@ -6,7 +6,7 @@ end
 
 function _agile_notes_lists
     echo -e "today\ntomorrow\nweek\nmonth\nyear"
-    /bin/ls "$NOTES_DIR" | egrep '.md$' | sed 's/.md//g'
+    /bin/ls "$NOTES_DIR" | grep -E '.md$' | sed 's/.md//g'
 end
 
 function _list_tasks

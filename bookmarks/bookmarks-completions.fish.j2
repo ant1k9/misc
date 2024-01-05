@@ -23,7 +23,7 @@ function _list_terms
 end
 
 function _bookmarks_notes
-    /bin/ls "$NOTES_DIR" | egrep '.md$' | sed 's/.md//g'
+    /bin/ls "$NOTES_DIR" | grep -E '.md$' | sed 's/.md//g'
 end
 
 function _bookmarks_commands

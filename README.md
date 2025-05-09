@@ -1,4 +1,4 @@
-### Miscellaneous scripts
+## Miscellaneous scripts
 
 #### Installation
 
@@ -6,6 +6,7 @@
 $ ./install.fish misc
 $ misc list
 $ misc install newsletter
+$ misc install aliasme .local/aliasme-local
 $ newsletter
 ```
 

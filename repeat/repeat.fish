@@ -1,10 +1,5 @@
 #!/usr/bin/env fish
 
-## helpers
-function list_coins
-    psql $DB_DSN -qXAt -c "SELECT rank, name FROM coins ORDER BY rank LIMIT 40"
-end
-
 ## body
 argparse \
     'h/help' \

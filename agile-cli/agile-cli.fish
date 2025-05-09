@@ -80,8 +80,8 @@ function _sync_with_server
             -H "Authorization: Basic $credentials" \
             -o "/tmp/$filename" 2>/dev/null
         for line in (cat "/tmp/$filename")
-            set line (string split ']' "$line" -m1 -f2)
-            grep -F "$line" "$NOTES_DIR/$filename" >/dev/null
+            set task (string split ']' "$line" -m1 -f2)
+            grep -F "$task" "$NOTES_DIR/$filename" >/dev/null
             if test $status -ne 0
                 echo "$line" >> "$NOTES_DIR/$filename"
             end
